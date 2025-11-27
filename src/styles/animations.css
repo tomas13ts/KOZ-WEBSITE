@@ -1,0 +1,185 @@
+@keyframes float {
+0%, 100% {
+transform: translateY(0px);
+}
+50% {
+transform: translateY(-20px);
+}
+}
+
+/* Glow Animation */
+@keyframes glow {
+0%, 100% {
+box-shadow: 0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(139, 92, 246, 0.3);
+}
+50% {
+box-shadow: 0 0 30px rgba(139, 92, 246, 0.8), 0 0 60px rgba(139, 92, 246, 0.5);
+}
+}
+
+/* Shimmer Animation */
+@keyframes shimmer {
+0% {
+background-position: -1000px 0;
+}
+100% {
+background-position: 1000px 0;
+}
+}
+
+/* Fade In Up */
+@keyframes fadeInUp {
+from {
+opacity: 0;
+transform: translateY(30px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+/* Slide In Right */
+@keyframes slideInRight {
+from {
+opacity: 0;
+transform: translateX(50px);
+}
+to {
+opacity: 1;
+transform: translateX(0);
+}
+}
+
+/* Slide In Left */
+@keyframes slideInLeft {
+from {
+opacity: 0;
+transform: translateX(-50px);
+}
+to {
+opacity: 1;
+transform: translateX(0);
+}
+}
+
+/* Pulse Dot */
+@keyframes pulseDot {
+0%, 100% {
+opacity: 1;
+}
+50% {
+opacity: 0.3;
+}
+}
+
+/* Scale Pulse */
+@keyframes scalePulse {
+0%, 100% {
+transform: scale(1);
+}
+50% {
+transform: scale(1.1);
+}
+}
+
+/* Rotate */
+@keyframes rotate {
+from {
+transform: rotate(0deg);
+}
+to {
+transform: rotate(360deg);
+}
+}
+
+/* Bounce */
+@keyframes bounce {
+0%, 100% {
+transform: translateY(0);
+}
+50% {
+transform: translateY(-10px);
+}
+}
+
+/* Pulse (from Tailwind) */
+@keyframes pulse {
+0%, 100% {
+opacity: 1;
+}
+50% {
+opacity: 0.5;
+}
+}
+
+/* Animation Classes */
+.animate-float {
+animation: float 6s ease-in-out infinite;
+}
+
+.animate-glow {
+animation: glow 3s ease-in-out infinite;
+}
+
+.animate-shimmer {
+animation: shimmer 3s infinite;
+background-size: 1000px 100%;
+}
+
+.animate-fadeInUp {
+animation: fadeInUp 0.8s ease-out;
+}
+
+.animate-slideInRight {
+animation: slideInRight 0.8s ease-out;
+}
+
+.animate-slideInLeft {
+animation: slideInLeft 0.8s ease-out;
+}
+
+.animate-pulseDot {
+animation: pulseDot 2s infinite;
+}
+
+.animate-scalePulse {
+animation: scalePulse 2s infinite;
+}
+
+.animate-rotate {
+animation: rotate 2s linear infinite;
+}
+
+.animate-bounce {
+animation: bounce 1s infinite;
+}
+
+.animate-pulse {
+animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Delay Utilities */
+.animation-delay-100 {
+animation-delay: 100ms;
+}
+
+.animation-delay-200 {
+animation-delay: 200ms;
+}
+
+.animation-delay-300 {
+animation-delay: 300ms;
+}
+
+.animation-delay-500 {
+animation-delay: 500ms;
+}
+
+.animation-delay-700 {
+animation-delay: 700ms;
+}
+
+.animation-delay-1000 {
+animation-delay: 1000ms;
+}

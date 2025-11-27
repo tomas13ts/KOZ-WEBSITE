@@ -1,0 +1,49 @@
+:root {
+  /* Primary Colors */
+  --koz-primary: #8b5cf6;
+  --koz-primary-dark: #7c3aed;
+  --koz-primary-light: #a78bfa;
+
+  /* Secondary Colors */
+  --koz-secondary: #6366f1;
+  --koz-secondary-dark: #4f46e5;
+  --koz-secondary-light: #818cf8;
+
+  /* Backgrounds */
+  --koz-dark: #1a1a2e;
+  --koz-darker: #0f0f1e;
+
+  /* Text */
+  --koz-light: #e5e7eb;
+  --koz-muted: #9ca3af;
+
+  /* Accents */
+  --koz-green: #10b981;
+  --koz-orange: #f59e0b;
+  --koz-red: #ef4444;
+  --koz-cyan: #22d3ee;
+
+  /* Borders */
+  --koz-border: rgba(139, 92, 246, 0.2);
+  --koz-border-light: rgba(139, 92, 246, 0.1);
+}
+
+/* Dark Mode (Default) */
+[data-theme='dark'] {
+  --koz-primary: #8b5cf6;
+  --koz-secondary: #6366f1;
+  --koz-dark: #1a1a2e;
+  --koz-darker: #0f0f1e;
+  --koz-light: #e5e7eb;
+  --koz-muted: #9ca3af;
+}
+
+/* Light Mode (Optional) */
+[data-theme='light'] {
+  --koz-primary: #7c3aed;
+  --koz-secondary: #4f46e5;
+  --koz-dark: #f9fafb;
+  --koz-darker: #f3f4f6;
+  --koz-light: #1f2937;
+  --koz-muted: #6b7280;
+}

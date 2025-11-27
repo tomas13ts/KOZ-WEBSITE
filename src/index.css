@@ -1,0 +1,235 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==================== COLORS ==================== */
+:root {
+  /* Primary Colors */
+  --koz-primary: #8b5cf6;
+  --koz-primary-dark: #7c3aed;
+  --koz-primary-light: #a78bfa;
+
+  /* Secondary Colors */
+  --koz-secondary: #6366f1;
+  --koz-secondary-dark: #4f46e5;
+  --koz-secondary-light: #818cf8;
+
+  /* Backgrounds */
+  --koz-dark: #1a1a2e;
+  --koz-darker: #0f0f1e;
+
+  /* Text */
+  --koz-light: #e5e7eb;
+  --koz-muted: #9ca3af;
+
+  /* Accents */
+  --koz-green: #10b981;
+  --koz-orange: #f59e0b;
+  --koz-red: #ef4444;
+  --koz-cyan: #22d3ee;
+
+  /* Borders */
+  --koz-border: rgba(139, 92, 246, 0.2);
+  --koz-border-light: rgba(139, 92, 246, 0.1);
+}
+
+/* ==================== ANIMATIONS ==================== */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(139, 92, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.8), 0 0 60px rgba(139, 92, 246, 0.5);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ==================== GLOBAL RESETS ==================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
+  color: #e5e7eb;
+  overflow-x: hidden;
+}
+
+/* ==================== LAYOUT ==================== */
+
+/* Container central tipo koz.pt */
+.page-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Hero por baixo do planet */
+.hero-section {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 80px;
+}
+
+/* Linha separadora */
+.section-divider {
+  border-top: 1px solid rgba(139, 92, 246, 0.4);
+  margin: 0;
+}
+
+/* ==================== NAVBAR ==================== */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  z-index: 50;
+  padding: 0 32px;
+  justify-content: space-between;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 20, 0.9),
+    rgba(10, 10, 20, 0.6),
+    transparent
+  );
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.nav-links a {
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 24px;
+  color: #e5e7eb;
+}
+
+.nav-links a:hover {
+  color: #a78bfa;
+}
+
+/* ==================== COMPONENT UTILITIES ==================== */
+
+/* Glass Effect */
+.glass-effect {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(99, 102, 241, 0.05) 100%);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.glass-effect:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+/* Gradient Text */
+.gradient-text {
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  color: white;
+  padding: 12px 32px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-block;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #e5e7eb;
+  padding: 12px 32px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  border: 2px solid rgba(139, 92, 246, 0.5);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-secondary:hover {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: #8b5cf6;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+/* Cards */
+.card-glass {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(99, 102, 241, 0.05) 100%);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-glass:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);
+  transform: translateY(-4px);
+}
+
+/* Anim helpers */
+.fade-in {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.loading-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
