@@ -367,29 +367,47 @@ function KeysSection() {
     loadKeys()
   }, [])
 
-  const handleCreateKey = async (e) => {
-    e.preventDefault()
-    setError("")
-    setCreating(true)
+const handleCreateKey = async (e) => {
+  e.preventDefault()
+  setError("")
+  setCreating(true)
 
-    const random = Math.random().toString(36).slice(2, 6).toUpperCase()
-    const year = new Date().getFullYear()
-    const keyCode = `${newPrefix}-${year}-${random}`
+  const random = Math.random().toString(36).slice(2, 8).toUpperCase()
+  const year = new Date().getFullYear()
+  const keyCode = `${newPrefix}-${year}-${random}`
 
-    const { error } = await supabase.from("activation_keys").insert({
-      key_code: keyCode,
-      is_used: false,
-      duration_days: newDays,
-    })
+  try {
+    const res = await fetch(
+      "https://sbhivufbongyjodyzcvx.functions.supabase.co/admin-panel?resource=create-key",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          key_code: keyCode,
+          duration_days: newDays,
+        }),
+      },
+    )
 
-    if (error) {
-      setError(error.message || "Failed to create key")
+    const json = await res.json()
+
+    if (json.error) {
+      setError(json.error)
     } else {
       setNewDays(30)
       await loadKeys()
     }
+  } catch (err) {
+    console.error("Error creating key:", err)
+    setError("Failed to create key")
+  } finally {
     setCreating(false)
   }
+}
+
 
   return (
     <div className="space-y-4">
