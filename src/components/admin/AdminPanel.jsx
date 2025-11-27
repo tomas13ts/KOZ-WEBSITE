@@ -7,68 +7,68 @@ const TABS = ["Overview", "Activation Keys", "Users"]
 export default function AdminPanel() {
   const [session, setSession] = useState(null)
   const [profile, setProfile] = useState(null)
-    const [status, setStatus] = useState("loading") // loading | anon | not-admin | ready
+  const [status, setStatus] = useState("loading") // loading | anon | not-admin | ready
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [authError, setAuthError] = useState("")
   const [activeTab, setActiveTab] = useState("Overview")
 
-    const [loading, setLoading] = useState(false)
-    
+  const [loading, setLoading] = useState(false)
 
- useEffect(() => {
-  const init = async () => {
-    setStatus("loading")
-    setLoading(true)
-    try {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession()
 
-      if (!session) {
-        setStatus("anon")
-        setLoading(false)
-        return
-      }
+  useEffect(() => {
+    const init = async () => {
+      setStatus("loading")
+      setLoading(true)
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession()
 
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
+        if (!session) {
+          setStatus("anon")
+          setLoading(false)
+          return
+        }
 
-      console.log("auth user:", user)
+        const {
+          data: { user },
+        } = await supabase.auth.getUser()
 
-      const res = await fetch(
-        "https://sbhivufbongyjodyzcvx.functions.supabase.co/admin-panel?resource=profile",
-        {
-          headers: {
-            Authorization: `Bearer ${session.access_token}`,
-            "x-user-email": user?.email ?? "",
+        console.log("auth user:", user)
+
+        const res = await fetch(
+          "https://sbhivufbongyjodyzcvx.functions.supabase.co/admin-panel?resource=profile",
+          {
+            headers: {
+              Authorization: `Bearer ${session.access_token}`,
+              "x-user-email": user?.email ?? "",
+            },
           },
-        },
-      )
+        )
 
-      const json = await res.json()
-      console.log("profile from function:", json)
+        const json = await res.json()
+        console.log("profile from function:", json)
 
-      if (!json.profile || json.profile.role !== "admin") {
-        setAuthError("Admin access required")
-        setProfile(null)
+        if (!json.profile || json.profile.role !== "admin") {
+          setAuthError("Admin access required")
+          setProfile(null)
+          setStatus("not-admin")
+        } else {
+          setProfile(json.profile)
+          setStatus("ready")
+        }
+      } catch (err) {
+        console.error("Error loading profile from function:", err)
+        setAuthError("Failed to load profile")
         setStatus("not-admin")
-      } else {
-        setProfile(json.profile)
-        setStatus("ready")
+      } finally {
+        setLoading(false)
       }
-    } catch (err) {
-      console.error("Error loading profile from function:", err)
-      setAuthError("Failed to load profile")
-      setStatus("not-admin")
-    } finally {
-      setLoading(false)
     }
-  }
 
-  init()
-}, [])
+    init()
+  }, [])
 
 
   const loadProfile = async (sess) => {
@@ -108,24 +108,24 @@ export default function AdminPanel() {
     }
   }
 
-const handleLogin = async (e) => {
-  e.preventDefault()
-  setAuthError("")
+  const handleLogin = async (e) => {
+    e.preventDefault()
+    setAuthError("")
 
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  })
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
 
-  if (error) {
-    setAuthError(error.message || "Login failed")
-    return
+    if (error) {
+      setAuthError(error.message || "Login failed")
+      return
+    }
+
+    if (data.session) {
+      // o useEffect inicial já trata de carregar o perfil
+    }
   }
-
-  if (data.session) {
-    // o useEffect inicial já trata de carregar o perfil
-  }
-}
 
 
   // ---------- RENDER GATES ----------
@@ -237,11 +237,10 @@ const handleLogin = async (e) => {
             <button
               key={t}
               onClick={() => setActiveTab(t)}
-              className={`w-full text-left px-3 py-2 rounded-lg text-sm ${
-                activeTab === t
+              className={`w-full text-left px-3 py-2 rounded-lg text-sm ${activeTab === t
                   ? "bg-koz-primary/20 text-koz-primary"
                   : "text-koz-muted hover:bg-white/5"
-              }`}
+                }`}
             >
               {t}
             </button>
@@ -505,23 +504,22 @@ function KeysSection() {
                     </td>
                     <td className="px-3 py-2">
                       <span
-                        className={`inline-flex px-2 py-0.5 rounded-full text-[10px] ${
-                          k.is_used
+                        className={`inline-flex px-2 py-0.5 rounded-full text-[10px] ${k.is_used
                             ? "bg-emerald-500/10 text-emerald-400"
                             : "bg-slate-500/10 text-slate-300"
-                        }`}
+                          }`}
                       >
                         {status}
                       </span>
                     </td>
-            <td className="px-3 py-2">
-            {k.duration_days ?? "—"} days
-            {k.days_left != null && (
-                <span className="ml-1 text-[10px] text-koz-muted">
-                ({k.days_left} left)
-                </span>
-            )}
-            </td>
+                    <td className="px-3 py-2">
+                      {k.duration_days ?? "—"} days
+                      {k.days_left != null && (
+                        <span className="ml-1 text-[10px] text-koz-muted">
+                          ({k.days_left} left)
+                        </span>
+                      )}
+                    </td>
                     <td className="px-3 py-2">{expires}</td>
                     <td className="px-3 py-2 font-mono text-[10px]">
                       {k.used_by ?? "—"}
@@ -616,48 +614,48 @@ function UsersSection() {
   }
 
   // carregar detalhes quando selecionas um utilizador
-useEffect(() => {
-  const loadDetails = async () => {
-    if (!selectedUser) {
-      setDetails(null)
-      return
-    }
-
-    setDetailsLoading(true)
-
-    try {
-      const url = new URL(
-        "https://sbhivufbongyjodyzcvx.functions.supabase.co/admin-panel",
-      )
-      url.searchParams.set("resource", "user-details")
-      url.searchParams.set("user_id", selectedUser.id)
-
-      const res = await fetch(url.toString(), {
-        headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-        },
-      })
-
-      const json = await res.json()
-      console.log("user details from function:", json)
-
-      if (json.error) {
-        console.error("Error from function:", json.error)
+  useEffect(() => {
+    const loadDetails = async () => {
+      if (!selectedUser) {
         setDetails(null)
         return
       }
 
-      setDetails({ profile: json.profile, key: json.key })
-    } catch (err) {
-      console.error("Error loading user details via function:", err)
-      setDetails(null)
-    } finally {
-      setDetailsLoading(false)
-    }
-  }
+      setDetailsLoading(true)
 
-  loadDetails()
-}, [selectedUser])
+      try {
+        const url = new URL(
+          "https://sbhivufbongyjodyzcvx.functions.supabase.co/admin-panel",
+        )
+        url.searchParams.set("resource", "user-details")
+        url.searchParams.set("user_id", selectedUser.id)
+
+        const res = await fetch(url.toString(), {
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          },
+        })
+
+        const json = await res.json()
+        console.log("user details from function:", json)
+
+        if (json.error) {
+          console.error("Error from function:", json.error)
+          setDetails(null)
+          return
+        }
+
+        setDetails({ profile: json.profile, key: json.key })
+      } catch (err) {
+        console.error("Error loading user details via function:", err)
+        setDetails(null)
+      } finally {
+        setDetailsLoading(false)
+      }
+    }
+
+    loadDetails()
+  }, [selectedUser])
 
 
   return (
@@ -711,11 +709,10 @@ useEffect(() => {
                     <td className="px-3 py-2 text-xs">{u.email}</td>
                     <td className="px-3 py-2 text-xs">
                       <span
-                        className={`inline-flex px-2 py-0.5 rounded-full text-[10px] ${
-                          isAdmin
+                        className={`inline-flex px-2 py-0.5 rounded-full text-[10px] ${isAdmin
                             ? "bg-emerald-500/10 text-emerald-400"
                             : "bg-slate-500/10 text-slate-300"
-                        }`}
+                          }`}
                       >
                         {u.role}
                       </span>
@@ -780,8 +777,8 @@ useEffect(() => {
                     Created:{" "}
                     {details.profile.created_at
                       ? new Date(
-                          details.profile.created_at,
-                        ).toLocaleString()
+                        details.profile.created_at,
+                      ).toLocaleString()
                       : "—"}
                   </div>
                 </div>
@@ -797,9 +794,7 @@ useEffect(() => {
                       <div className="text-koz-muted">
                         Created:{" "}
                         {details.key.created_at
-                          ? new Date(
-                              details.key.created_at,
-                            ).toLocaleString()
+                          ? new Date(details.key.created_at).toLocaleString()
                           : "—"}
                       </div>
                       <div className="text-koz-muted">
@@ -807,11 +802,38 @@ useEffect(() => {
                       </div>
                       <div className="text-koz-muted">
                         Expires:{" "}
-                        {details.key.expires_at
-                          ? new Date(
-                              details.key.expires_at,
-                            ).toLocaleString()
-                          : "—"}
+                        {details.key.expires_at ? (
+                          <>
+                            {new Date(details.key.expires_at).toLocaleDateString()}
+                            {(() => {
+                              const now = new Date()
+                              const exp = new Date(details.key.expires_at)
+                              const daysLeft = Math.ceil((exp - now) / (1000 * 60 * 60 * 24))
+                              if (daysLeft > 0) {
+                                return (
+                                  <span className="ml-1 text-[10px] text-koz-muted">
+                                    ({daysLeft} {daysLeft === 1 ? "dia" : "dias"} restantes)
+                                  </span>
+                                )
+                              } else if (daysLeft === 0) {
+                                return (
+                                  <span className="ml-1 text-[10px] text-amber-400">
+                                    (expira hoje)
+                                  </span>
+                                )
+                              } else {
+                                return (
+                                  <span className="ml-1 text-[10px] text-red-400">
+                                    (expirada há {Math.abs(daysLeft)}{" "}
+                                    {Math.abs(daysLeft) === 1 ? "dia" : "dias"})
+                                  </span>
+                                )
+                              }
+                            })()}
+                          </>
+                        ) : (
+                          "—"
+                        )}
                       </div>
                       <div className="text-koz-muted">
                         Status: {details.key.is_used ? "Used" : "Unused"}
