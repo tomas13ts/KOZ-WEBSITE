@@ -7,41 +7,69 @@ const TABS = ["Overview", "Activation Keys", "Users"]
 export default function AdminPanel() {
   const [session, setSession] = useState(null)
   const [profile, setProfile] = useState(null)
-  const [status, setStatus] = useState("loading") // loading | anon | not-admin | ready
+    const [status, setStatus] = useState("loading") // loading | anon | not-admin | ready
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [authError, setAuthError] = useState("")
   const [activeTab, setActiveTab] = useState("Overview")
 
-  // Load session on mount
-  useEffect(() => {
-    const init = async () => {
+    const [loading, setLoading] = useState(false)
+    
+
+ useEffect(() => {
+  const init = async () => {
+    setStatus("loading")
+    setLoading(true)
+    try {
       const {
         data: { session },
       } = await supabase.auth.getSession()
+
       if (!session) {
         setStatus("anon")
+        setLoading(false)
         return
       }
-      setSession(session)
-      await loadProfile(session)
-    }
-    init()
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, newSession) => {
-      setSession(newSession)
-      if (!newSession) {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
+
+      console.log("auth user:", user)
+
+      const res = await fetch(
+        "https://sbhivufbongyjodyzcvx.functions.supabase.co/admin-panel?resource=profile",
+        {
+          headers: {
+            Authorization: `Bearer ${session.access_token}`,
+            "x-user-email": user?.email ?? "",
+          },
+        },
+      )
+
+      const json = await res.json()
+      console.log("profile from function:", json)
+
+      if (!json.profile || json.profile.role !== "admin") {
+        setAuthError("Admin access required")
         setProfile(null)
-        setStatus("anon")
+        setStatus("not-admin")
       } else {
-        loadProfile(newSession)
+        setProfile(json.profile)
+        setStatus("ready")
       }
-    })
+    } catch (err) {
+      console.error("Error loading profile from function:", err)
+      setAuthError("Failed to load profile")
+      setStatus("not-admin")
+    } finally {
+      setLoading(false)
+    }
+  }
 
-    return () => subscription.unsubscribe()
-  }, [])
+  init()
+}, [])
+
 
   const loadProfile = async (sess) => {
     if (!sess?.user) {
@@ -80,24 +108,25 @@ export default function AdminPanel() {
     }
   }
 
-  const handleLogin = async (e) => {
-    e.preventDefault()
-    setAuthError("")
+const handleLogin = async (e) => {
+  e.preventDefault()
+  setAuthError("")
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  })
 
-    if (error) {
-      setAuthError(error.message || "Login failed")
-      return
-    }
-
-    if (data.session) {
-      await loadProfile(data.session)
-    }
+  if (error) {
+    setAuthError(error.message || "Login failed")
+    return
   }
+
+  if (data.session) {
+    // o useEffect inicial já trata de carregar o perfil
+  }
+}
+
 
   // ---------- RENDER GATES ----------
 
@@ -339,36 +368,29 @@ function KeysSection() {
     loadKeys()
   }, [])
 
-const handleCreateKey = async (e) => {
-  e.preventDefault()
-  setError("")
-  setCreating(true)
+  const handleCreateKey = async (e) => {
+    e.preventDefault()
+    setError("")
+    setCreating(true)
 
-  const random = Math.random().toString(36).slice(2, 6).toUpperCase()
-  const year = new Date().getFullYear()
-  const keyCode = `${newPrefix}-${year}-${random}`
+    const random = Math.random().toString(36).slice(2, 6).toUpperCase()
+    const year = new Date().getFullYear()
+    const keyCode = `${newPrefix}-${year}-${random}`
 
-  const now = new Date()
-  const expiresAt = new Date(
-    now.getTime() + newDays * 24 * 60 * 60 * 1000,
-  ).toISOString()
+    const { error } = await supabase.from("activation_keys").insert({
+      key_code: keyCode,
+      is_used: false,
+      duration_days: newDays,
+    })
 
-  const { error } = await supabase.from("activation_keys").insert({
-    key_code: keyCode,
-    is_used: false,
-    duration_days: newDays,
-    expires_at: expiresAt,   // ← aqui
-  })
-
-  if (error) {
-    setError(error.message || "Failed to create key")
-  } else {
-    setNewDays(30)
-    await loadKeys()
+    if (error) {
+      setError(error.message || "Failed to create key")
+    } else {
+      setNewDays(30)
+      await loadKeys()
+    }
+    setCreating(false)
   }
-  setCreating(false)
-}
-
 
   return (
     <div className="space-y-4">
@@ -492,14 +514,14 @@ const handleCreateKey = async (e) => {
                         {status}
                       </span>
                     </td>
-                        <td className="px-3 py-2">
-                        {k.duration_days ?? "—"} days
-                        {k.days_left != null && (
-                            <span className="ml-1 text-[10px] text-koz-muted">
-                            ({k.days_left} left)
-                            </span>
-                        )}
-                        </td>
+            <td className="px-3 py-2">
+            {k.duration_days ?? "—"} days
+            {k.days_left != null && (
+                <span className="ml-1 text-[10px] text-koz-muted">
+                ({k.days_left} left)
+                </span>
+            )}
+            </td>
                     <td className="px-3 py-2">{expires}</td>
                     <td className="px-3 py-2 font-mono text-[10px]">
                       {k.used_by ?? "—"}
@@ -593,6 +615,7 @@ function UsersSection() {
     }
   }
 
+  // carregar detalhes quando selecionas um utilizador
 useEffect(() => {
   const loadDetails = async () => {
     if (!selectedUser) {
@@ -738,11 +761,11 @@ useEffect(() => {
             </div>
 
             {detailsLoading ? (
-            <div className="text-koz-muted">Loading details…</div>
+              <div className="text-koz-muted">Loading details…</div>
             ) : !details || !details.profile ? (
-            <div className="text-koz-muted">
+              <div className="text-koz-muted">
                 Could not load details for this user.
-            </div>
+              </div>
             ) : (
               <>
                 {/* Perfil */}
