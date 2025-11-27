@@ -478,24 +478,61 @@ function KeysSection() {
                   ? new Date(k.created_at).toLocaleDateString()
                   : "—"
 
-                const handleRevoke = async () => {
-                  await supabase
-                    .from("activation_keys")
-                    .update({
-                      is_used: true,
-                      expires_at: new Date().toISOString(),
-                    })
-                    .eq("id", k.id)
-                  await loadKeys()
-                }
+const handleRevoke = async (keyId) => {
+  try {
+    const res = await fetch(
+      "https://sbhivufbongyjodyzcvx.functions.supabase.co/admin-panel?resource=revoke-key",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: keyId }),  // <-- muda de key_id para id
+      },
+    )
 
-                const handleDelete = async () => {
-                  await supabase
-                    .from("activation_keys")
-                    .delete()
-                    .eq("id", k.id)
-                  await loadKeys()
-                }
+    const json = await res.json()
+
+    if (json.error) {
+      console.error("Error revoking key:", json.error)
+      return
+    }
+
+    await loadKeys()
+  } catch (err) {
+    console.error("Error revoking key:", err)
+  }
+}
+
+const handleDelete = async (keyId) => {
+  try {
+    const res = await fetch(
+      "https://sbhivufbongyjodyzcvx.functions.supabase.co/admin-panel?resource=delete-key",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: keyId }),  // <-- muda de key_id para id
+      },
+    )
+
+    const json = await res.json()
+
+    if (json.error) {
+      console.error("Error deleting key:", json.error)
+      return
+    }
+
+    await loadKeys()
+  } catch (err) {
+    console.error("Error deleting key:", err)
+  }
+}
+
+
 
                 return (
                   <tr key={k.id} className="border-t border-koz-border-light">
@@ -526,20 +563,12 @@ function KeysSection() {
                     </td>
                     <td className="px-3 py-2">{created}</td>
                     <td className="px-3 py-2 text-right space-x-2">
-                      {!k.is_used && (
-                        <button
-                          onClick={handleRevoke}
-                          className="text-[10px] text-amber-300 hover:text-amber-200"
-                        >
-                          Revoke
-                        </button>
-                      )}
-                      <button
-                        onClick={handleDelete}
-                        className="text-[10px] text-red-400 hover:text-red-300"
-                      >
-                        Delete
-                      </button>
+                    <button
+                      onClick={() => handleDelete(k.id)}
+                      className="text-[10px] text-red-400 hover:text-red-300"
+                    >
+                      Delete
+                    </button>
                     </td>
                   </tr>
                 )
