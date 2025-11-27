@@ -48,21 +48,34 @@ export default function AdminPanel() {
       setStatus("anon")
       return
     }
-    const { data, error } = await supabase
-      .from("user_profiles")
-      .select("id, email, role, created_at")
-      .eq("id", sess.user.id)
-      .single()
 
-    if (error || !data) {
-      setStatus("not-admin")
-      return
-    }
+    try {
+      const res = await fetch(
+        "https://sbhivufbongyjodyzcvx.functions.supabase.co/admin-panel?resource=profile",
+        {
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+            "x-user-id": sess.user.id,
+          },
+        },
+      )
 
-    setProfile(data)
-    if (data.role === "admin") {
-      setStatus("ready")
-    } else {
+      const json = await res.json()
+      console.log("profile from function:", json)
+
+      if (!json.profile) {
+        setStatus("not-admin")
+        return
+      }
+
+      setProfile(json.profile)
+      if (json.profile.role === "admin") {
+        setStatus("ready")
+      } else {
+        setStatus("not-admin")
+      }
+    } catch (err) {
+      console.error("Error loading profile from function:", err)
       setStatus("not-admin")
     }
   }
@@ -290,6 +303,7 @@ function OverviewSection() {
 }
 
 // ---------- Activation Keys ----------
+
 function KeysSection() {
   const [keys, setKeys] = useState([])
   const [loading, setLoading] = useState(true)
@@ -300,45 +314,61 @@ function KeysSection() {
 
   const loadKeys = async () => {
     setLoading(true)
-    const { data, error } = await supabase
-      .from("activation_keys")
-      .select(
-        "id, key_code, is_used, used_by, created_at, duration_days, expires_at",
-      )
-      .order("created_at", { ascending: false })
 
-    if (!error && data) setKeys(data)
-    setLoading(false)
+    try {
+      const res = await fetch(
+        "https://sbhivufbongyjodyzcvx.functions.supabase.co/admin-panel?resource=keys",
+        {
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          },
+        },
+      )
+
+      const json = await res.json()
+      setKeys(json.keys || [])
+    } catch (err) {
+      console.error("Error loading keys from function:", err)
+      setKeys([])
+    } finally {
+      setLoading(false)
+    }
   }
 
   useEffect(() => {
     loadKeys()
   }, [])
 
-  const handleCreateKey = async (e) => {
-    e.preventDefault()
-    setError("")
-    setCreating(true)
+const handleCreateKey = async (e) => {
+  e.preventDefault()
+  setError("")
+  setCreating(true)
 
-    // gera código simples tipo KOZ-PROD-2024-XXXX
-    const random = Math.random().toString(36).slice(2, 6).toUpperCase()
-    const year = new Date().getFullYear()
-    const keyCode = `${newPrefix}-${year}-${random}`
+  const random = Math.random().toString(36).slice(2, 6).toUpperCase()
+  const year = new Date().getFullYear()
+  const keyCode = `${newPrefix}-${year}-${random}`
 
-    const { error } = await supabase.from("activation_keys").insert({
-      key_code: keyCode,
-      is_used: false,
-      duration_days: newDays,
-    })
+  const now = new Date()
+  const expiresAt = new Date(
+    now.getTime() + newDays * 24 * 60 * 60 * 1000,
+  ).toISOString()
 
-    if (error) {
-      setError(error.message || "Failed to create key")
-    } else {
-      setNewDays(30)
-      await loadKeys()
-    }
-    setCreating(false)
+  const { error } = await supabase.from("activation_keys").insert({
+    key_code: keyCode,
+    is_used: false,
+    duration_days: newDays,
+    expires_at: expiresAt,   // ← aqui
+  })
+
+  if (error) {
+    setError(error.message || "Failed to create key")
+  } else {
+    setNewDays(30)
+    await loadKeys()
   }
+  setCreating(false)
+}
+
 
   return (
     <div className="space-y-4">
@@ -430,7 +460,10 @@ function KeysSection() {
                 const handleRevoke = async () => {
                   await supabase
                     .from("activation_keys")
-                    .update({ is_used: true, expires_at: new Date().toISOString() })
+                    .update({
+                      is_used: true,
+                      expires_at: new Date().toISOString(),
+                    })
                     .eq("id", k.id)
                   await loadKeys()
                 }
@@ -459,9 +492,14 @@ function KeysSection() {
                         {status}
                       </span>
                     </td>
-                    <td className="px-3 py-2">
-                      {k.duration_days ?? "—"} days
-                    </td>
+                        <td className="px-3 py-2">
+                        {k.duration_days ?? "—"} days
+                        {k.days_left != null && (
+                            <span className="ml-1 text-[10px] text-koz-muted">
+                            ({k.days_left} left)
+                            </span>
+                        )}
+                        </td>
                     <td className="px-3 py-2">{expires}</td>
                     <td className="px-3 py-2 font-mono text-[10px]">
                       {k.used_by ?? "—"}
@@ -499,30 +537,105 @@ function KeysSection() {
 function UsersSection() {
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
+  const [selectedUser, setSelectedUser] = useState(null)
+  const [details, setDetails] = useState(null)
+  const [detailsLoading, setDetailsLoading] = useState(false)
 
   const loadUsers = async () => {
     setLoading(true)
-    const { data, error } = await supabase
-      .from("user_profiles")
-      .select("id, email, role, activation_key, created_at")
-      .order("created_at", { ascending: false })
 
-    if (!error && data) setUsers(data)
-    setLoading(false)
+    try {
+      const res = await fetch(
+        "https://sbhivufbongyjodyzcvx.functions.supabase.co/admin-panel?resource=users",
+        {
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          },
+        },
+      )
+
+      const json = await res.json()
+      console.log("users from function:", json)
+      setUsers(json.users || [])
+    } catch (err) {
+      console.error("Error loading users:", err)
+      setUsers([])
+    } finally {
+      setLoading(false)
+    }
   }
 
   useEffect(() => {
     loadUsers()
   }, [])
 
-  const toggleRole = async (user) => {
-    const newRole = user.role === "admin" ? "user" : "admin"
-    await supabase
-      .from("user_profiles")
-      .update({ role: newRole })
-      .eq("id", user.id)
-    await loadUsers()
+  const deleteUser = async (user) => {
+    if (!window.confirm(`Tens a certeza que queres remover ${user.email}?`)) {
+      return
+    }
+
+    try {
+      const { error } = await supabase
+        .from("user_profiles")
+        .delete()
+        .eq("id", user.id)
+
+      if (error) {
+        console.error("Error deleting user:", error)
+        return
+      }
+
+      await loadUsers()
+      setSelectedUser(null)
+      setDetails(null)
+    } catch (err) {
+      console.error("Error deleting user:", err)
+    }
   }
+
+useEffect(() => {
+  const loadDetails = async () => {
+    if (!selectedUser) {
+      setDetails(null)
+      return
+    }
+
+    setDetailsLoading(true)
+
+    try {
+      const url = new URL(
+        "https://sbhivufbongyjodyzcvx.functions.supabase.co/admin-panel",
+      )
+      url.searchParams.set("resource", "user-details")
+      url.searchParams.set("user_id", selectedUser.id)
+
+      const res = await fetch(url.toString(), {
+        headers: {
+          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+        },
+      })
+
+      const json = await res.json()
+      console.log("user details from function:", json)
+
+      if (json.error) {
+        console.error("Error from function:", json.error)
+        setDetails(null)
+        return
+      }
+
+      setDetails({ profile: json.profile, key: json.key })
+    } catch (err) {
+      console.error("Error loading user details via function:", err)
+      setDetails(null)
+    } finally {
+      setDetailsLoading(false)
+    }
+  }
+
+  loadDetails()
+}, [selectedUser])
+
 
   return (
     <div className="space-y-4">
@@ -567,7 +680,11 @@ function UsersSection() {
                   : "—"
                 const isAdmin = u.role === "admin"
                 return (
-                  <tr key={u.id} className="border-t border-koz-border-light">
+                  <tr
+                    key={u.id}
+                    className="border-t border-koz-border-light hover:bg-white/5 cursor-pointer"
+                    onClick={() => setSelectedUser(u)}
+                  >
                     <td className="px-3 py-2 text-xs">{u.email}</td>
                     <td className="px-3 py-2 text-xs">
                       <span
@@ -586,10 +703,13 @@ function UsersSection() {
                     <td className="px-3 py-2">{created}</td>
                     <td className="px-3 py-2 text-right">
                       <button
-                        onClick={() => toggleRole(u)}
-                        className="text-[10px] text-koz-primary hover:text-koz-primary/80"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          deleteUser(u)
+                        }}
+                        className="text-[10px] text-red-400 hover:text-red-300"
                       >
-                        {isAdmin ? "Remove admin" : "Make admin"}
+                        Delete user
                       </button>
                     </td>
                   </tr>
@@ -599,6 +719,95 @@ function UsersSection() {
           </tbody>
         </table>
       </div>
+
+      {/* POPUP DE DETALHES */}
+      {selectedUser && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+          <div className="card-glass max-w-md w-full mx-4 p-4 text-xs space-y-3">
+            <div className="flex items-center justify-between mb-1">
+              <h3 className="text-sm font-semibold">User details</h3>
+              <button
+                onClick={() => {
+                  setSelectedUser(null)
+                  setDetails(null)
+                }}
+                className="text-[10px] text-koz-muted hover:text-koz-primary"
+              >
+                Close
+              </button>
+            </div>
+
+            {detailsLoading ? (
+            <div className="text-koz-muted">Loading details…</div>
+            ) : !details || !details.profile ? (
+            <div className="text-koz-muted">
+                Could not load details for this user.
+            </div>
+            ) : (
+              <>
+                {/* Perfil */}
+                <div className="space-y-1">
+                  <div className="font-semibold">
+                    {details.profile.email}
+                  </div>
+                  <div className="text-koz-muted">
+                    Role: {details.profile.role}
+                  </div>
+                  <div className="text-koz-muted">
+                    Created:{" "}
+                    {details.profile.created_at
+                      ? new Date(
+                          details.profile.created_at,
+                        ).toLocaleString()
+                      : "—"}
+                  </div>
+                </div>
+
+                {/* Key */}
+                <div className="border-t border-koz-border-light pt-2 space-y-1">
+                  <div className="font-semibold">Activation key</div>
+                  {details.key ? (
+                    <>
+                      <div className="font-mono text-[11px]">
+                        {details.key.key_code}
+                      </div>
+                      <div className="text-koz-muted">
+                        Created:{" "}
+                        {details.key.created_at
+                          ? new Date(
+                              details.key.created_at,
+                            ).toLocaleString()
+                          : "—"}
+                      </div>
+                      <div className="text-koz-muted">
+                        Duration days: {details.key.duration_days ?? "—"}
+                      </div>
+                      <div className="text-koz-muted">
+                        Expires:{" "}
+                        {details.key.expires_at
+                          ? new Date(
+                              details.key.expires_at,
+                            ).toLocaleString()
+                          : "—"}
+                      </div>
+                      <div className="text-koz-muted">
+                        Status: {details.key.is_used ? "Used" : "Unused"}
+                      </div>
+                      <div className="text-koz-muted">
+                        Used by: {details.key.used_by ?? "—"}
+                      </div>
+                    </>
+                  ) : (
+                    <div className="text-koz-muted">
+                      No activation key linked.
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
