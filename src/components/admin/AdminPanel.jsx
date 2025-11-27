@@ -589,29 +589,37 @@ function UsersSection() {
     loadUsers()
   }, [])
 
-  const deleteUser = async (user) => {
-    if (!window.confirm(`Tens a certeza que queres remover ${user.email}?`)) {
+const deleteUser = async (user) => {
+  if (!window.confirm(`Tens a certeza que queres remover ${user.email}?`)) return
+
+  try {
+    const res = await fetch(
+      "https://sbhivufbongyjodyzcvx.functions.supabase.co/admin-panel?resource=delete-user",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user_id: user.id }),
+      },
+    )
+
+    const json = await res.json()
+
+    if (json.error) {
+      console.error("Error deleting user:", json.error)
       return
     }
 
-    try {
-      const { error } = await supabase
-        .from("user_profiles")
-        .delete()
-        .eq("id", user.id)
-
-      if (error) {
-        console.error("Error deleting user:", error)
-        return
-      }
-
-      await loadUsers()
-      setSelectedUser(null)
-      setDetails(null)
-    } catch (err) {
-      console.error("Error deleting user:", err)
-    }
+    await loadUsers()
+    setSelectedUser(null)
+    setDetails(null)
+  } catch (err) {
+    console.error("Error deleting user:", err)
   }
+}
+
 
   // carregar detalhes quando selecionas um utilizador
   useEffect(() => {
