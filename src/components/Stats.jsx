@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 import { useLanguage } from "../contexts/LanguageContext"
 
 const initialStats = (t) => [
-  { label: t("stats.fpsBoost"), target: 65, suffix: "%" },
+  { label: t("stats.fpsBoost"), target: 8, suffix: "+" },
   { label: t("stats.latency"), target: 25, suffix: "%" },
   { label: t("stats.games"), target: 500, suffix: "+" },
   { label: t("stats.users"), target: 2000, suffix: "+" },

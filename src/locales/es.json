@@ -29,10 +29,10 @@
   "stats": {
     "title": "Rendimiento que puedes medir",
     "subtitle": "Métricas en vivo reportadas por usuarios de KOZ, para que tengas una idea clara de qué esperar antes de instalar.",
-    "fpsBoost": "Aumento promedio de FPS",
+    "fpsBoost": "Años de experiencia",
     "latency": "Reducción de latencia",
     "games": "Juegos optimizados",
-    "users": "Usuarios beta"
+    "users": "Clientes"
   },
   "features": {
     "eyebrow": "Cómo funciona",
