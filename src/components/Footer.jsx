@@ -6,7 +6,7 @@ export default function Footer() {
   const { t } = useLanguage()
 
   return (
-    <footer className="mt-16 border-t border-koz-border-light pt-10 pb-8">
+  <footer className="mt-16 pt-10 pb-8 border-t border-white/5">
       <div className="page-container">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
           {/* Logo + texto curto */}
