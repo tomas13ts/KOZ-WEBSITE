@@ -53,7 +53,7 @@ export default function Navbar() {
             ))}
 
             <a
-              href="https://discord.gg/koz"
+              href="https://discord.gg/kripsoptimization"
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2 rounded-full bg-[#5865F2] hover:bg-[#4752C4] text-white text-sm font-medium shadow-lg shadow-indigo-500/30 transition-colors"
@@ -95,7 +95,7 @@ export default function Navbar() {
             ))}
 
             <a
-              href="https://discord.gg/koz"
+              href="https://discord.gg/kripsoptimization"
               onClick={() => setMobileMenuOpen(false)}
               target="_blank"
               rel="noopener noreferrer"
