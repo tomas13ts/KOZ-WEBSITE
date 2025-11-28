@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
+import { useLanguage } from "../contexts/LanguageContext"
 
-const initialStats = [
-  { label: "Average FPS boost", target: 65, suffix: "%" },
-  { label: "Latency reduction", target: 25, suffix: "%" },
-  { label: "Games optimized", target: 500, suffix: "+" },
-  { label: "Beta users", target: 2000, suffix: "+" },
+const initialStats = (t) => [
+  { label: t("stats.fpsBoost"), target: 65, suffix: "%" },
+  { label: t("stats.latency"), target: 25, suffix: "%" },
+  { label: t("stats.games"), target: 500, suffix: "+" },
+  { label: t("stats.users"), target: 2000, suffix: "+" },
 ]
 
 export default function Stats() {
+  const { t } = useLanguage()
   const [stats, setStats] = useState(
-    initialStats.map((s) => ({ ...s, value: 0 }))
+    initialStats(t).map((s) => ({ ...s, value: 0 }))
   )
 
   useEffect(() => {
@@ -36,11 +38,10 @@ export default function Stats() {
     <section className="py-20" id="stats">
       <div className="mb-10">
         <h2 className="text-2xl md:text-3xl font-bold mb-3">
-          Performance you can measure
+          {t("stats.title")}
         </h2>
         <p className="text-sm md:text-base text-koz-muted max-w-xl">
-          Live metrics reported by KOZ users, so you have a clear idea of what
-          to expect before installing.
+          {t("stats.subtitle")}
         </p>
       </div>
 

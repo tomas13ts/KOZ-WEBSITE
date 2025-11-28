@@ -1,0 +1,155 @@
+{
+  "nav": {
+    "features": "Features",
+    "download": "Download",
+    "testimonials": "Testimonials"
+  },
+    "hero": {
+    "badge": "KOZ app currently in development",
+    "titleOptimize": "Optimize",
+    "titleMiddle": "your",
+    "titlePcForGaming": "PC for gaming",
+    "titleWithoutGuesswork": "without guesswork",
+    "subtitle": "KOZ is a Windows optimization app built from the same workflows used in our one‑to‑one tuning services for competitive players.",
+    "description": "While the app is in development, all updates, previews and changelogs are shared inside our Discord community with over 4,000 members and 2,000+ paying clients.",
+    "discordCta": "Join the Discord community",
+    "previewAlt": "KOZ app system overview",
+    "previewAltLarge": "KOZ app system overview large preview",
+    "close": "Close"
+    },
+  "beta": {
+    "badge": "Limited Early Access",
+    "title": "Early access to KOZ Optimizer",
+    "description": "KOZ is currently in open beta. Get access to the latest performance tweaks and help shape the next generation of PC optimization.",
+    "feature1": "Full feature access during beta",
+    "feature2": "Lifetime discount for early users",
+    "feature3": "Direct feedback channel to the dev team",
+    "cta": "Get beta access"
+  },
+  "stats": {
+    "title": "Performance you can measure",
+    "subtitle": "Live metrics reported by KOZ users, so you have a clear idea of what to expect before installing.",
+    "fpsBoost": "Average FPS boost",
+    "latency": "Latency reduction",
+    "games": "Games optimized",
+    "users": "Beta users"
+  },
+  "features": {
+    "eyebrow": "How it works",
+    "title": "Built for gamers who want results",
+    "subtitle": "KOZ focuses on what actually improves gaming performance, without bloat or noise. Everything is designed to be clear and fast to use.",
+    "network": {
+      "title": "Network optimization",
+      "description": "Reduce ping spikes and stabilize your connection with network-level tweaks."
+    },
+    "presets": {
+      "title": "Game presets",
+      "description": "Apply optimized presets for your favorite titles with a single click."
+    },
+    "monitoring": {
+      "title": "Real-time monitoring",
+      "description": "Track CPU, RAM and latency in a clean, distraction‑free interface."
+    },
+    "safe": {
+      "title": "Safe & reversible",
+      "description": "All tweaks are reversible. Restore your system to defaults anytime."
+    },
+    "advanced": {
+      "title": "Advanced tweaking",
+      "description": "Fine‑tune services, processes and network routes when you need full control."
+    },
+    "lightweight": {
+      "title": "Lightweight",
+      "description": "Built to be fast and efficient, with minimal resource usage."
+    }
+  },
+    "testimonials": {
+    "title": "Feedback from real players",
+    "subtitle": "These are just a few of the results reported by players using our Tier 3 optimizations, exclusive strafe setups and custom Windows builds.",
+    "disclaimer": "All feedback comes from real clients on our Discord server, where we share full clips, prints and detailed before/after results.",
+    "cta": "View more feedback on Discord",
+    "fpsGainLabel": "FPS gain",
+    "items": [
+        {
+        "name": "GODMOTA",
+        "role": "CS player",
+        "quote": "Service felt five‑star. PC finally handles casino slots and CS the way it should.",
+        "fpsGain": "CS: smoother & stable"
+        },
+        {
+        "name": "Bardock",
+        "role": "FiveM · Haven RP",
+        "quote": "Second optimization with Krips, now with overclock. Went from barely playable city FPS to smooth 300+ on a heavy server.",
+        "fpsGain": "90–100 → 300 FPS"
+        },
+        {
+        "name": "dn",
+        "role": "FiveM player",
+        "quote": "Tried several optimizations before, nothing compares. FPS are locked and stable with zero input lag.",
+        "fpsGain": "450+ FPS lock"
+        },
+        {
+        "name": "EsQ_23",
+        "role": "FiveM player",
+        "quote": "Top‑tier service, every question answered. Exclusive strafe feels better than ever and the system is clearly faster.",
+        "fpsGain": "Strafe upgrade · smoother aim"
+        },
+        {
+        "name": "015",
+        "role": "FiveM · Crazy Strafe",
+        "quote": "Two weeks after the session the setup still feels better every day. Exclusive strafe and 12.5 sens feel perfect in raids.",
+        "fpsGain": "330–360 FPS raids"
+        },
+        {
+        "name": "Dudyz",
+        "role": "FiveM & Valorant",
+        "quote": "Tier 3 speaks for itself. Huge FPS on base with 300 players and a solid boost on Valorant as well.",
+        "fpsGain": "FiveM base: 500 FPS"
+        },
+        {
+        "name": "Relax",
+        "role": "FiveM arena",
+        "quote": "Tier 3 turned arena fights into a different game. Super clean, fluid and fast. Exactly the kind of boost people look for.",
+        "fpsGain": "300–350 → 563+ FPS"
+        },
+        {
+        "name": "tuber",
+        "role": "FiveM player",
+        "quote": "Massive upgrade in both consistency and responsiveness. The before/after clips make it obvious.",
+        "fpsGain": "Big FPS jump · smoother fights"
+        },
+        {
+        "name": "ezzy.exe",
+        "role": "FiveM & YouTube",
+        "quote": "No ksOS, just Tier 3 and exclusive strafe. Simple, efficient and far ahead of the usual ‘optimizer’ attempts you see around.",
+        "fpsGain": "Strafe + FPS upgrade"
+        },
+        {
+        "name": "Félix",
+        "role": "FiveM player",
+        "quote": "Always had high FPS, but never reached this level of stability before. Tier 3 with exclusive strafe pushed it to a new ceiling.",
+        "fpsGain": "Up to 563 FPS"
+        }
+    ]
+    },
+  "download": {
+    "eyebrow": "Get started",
+    "title": "Ready to",
+    "titleHighlight": "optimize your setup?",
+    "subtitle": "KOZ is currently available for Windows, with more platforms on the roadmap. Download the beta and start testing the new performance engine.",
+    "windows": "Windows",
+    "windowsDesc": "Windows 10 / 11, 64-bit",
+    "version": "v0.9.0 Beta",
+    "size": "≈ 150 MB",
+    "downloadButton": "Download beta",
+    "macos": "macOS",
+    "macosDesc": "Planned support",
+    "linux": "Linux",
+    "linuxDesc": "Planned support",
+    "comingSoon": "Coming soon"
+  },
+  "footer": {
+    "tagline": "The performance optimizer built by gamers, for gamers.",
+    "copyright": "© {year} KOZ. All rights reserved."
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "nav": {
+    "features": "Features",
+    "download": "Download",
+    "testimonials": "Testimonials"
+  },
+  "hero": {
+    "badge": "Application KOZ actuellement en développement",
+    "titleOptimize": "Optimisez",
+    "titleMiddle": "votre",
+    "titlePcForGaming": "PC pour le gaming",
+    "titleWithoutGuesswork": "sans approximations",
+    "subtitle": "KOZ est une application d’optimisation pour Windows construite à partir des mêmes flux de travail que nous utilisons dans nos services de réglage individuel pour les joueurs compétitifs.",
+    "description": "Pendant que l’application est en développement, toutes les mises à jour, aperçus et journaux de modifications sont partagés dans notre communauté Discord, qui compte plus de 4 000 membres et plus de 2 000 clients payants.",
+    "discordCta": "Rejoignez la communauté Discord",
+    "previewAlt": "Vue d’ensemble du système de l’application KOZ",
+    "previewAltLarge": "Aperçu grand format de la vue d’ensemble du système de l’application KOZ",
+    "close": "Fermer"
+  },
+  "beta": {
+    "badge": "Accès anticipé limité",
+    "title": "Accès anticipé à KOZ Optimizer",
+    "description": "KOZ est actuellement en bêta ouverte. Accédez aux derniers ajustements de performances et aidez à façonner la prochaine génération d'optimisation PC.",
+    "feature1": "Accès complet à toutes les fonctionnalités pendant la bêta",
+    "feature2": "Réduction à vie pour les utilisateurs précoces",
+    "feature3": "Canal de retour direct avec l'équipe de développement",
+    "cta": "Obtenir l'accès bêta"
+  },
+  "stats": {
+    "title": "Performances que vous pouvez mesurer",
+    "subtitle": "Métriques en direct rapportées par les utilisateurs de KOZ, pour que vous ayez une idée claire de ce à quoi vous attendre avant l'installation.",
+    "fpsBoost": "Augmentation moyenne de FPS",
+    "latency": "Réduction de latence",
+    "games": "Jeux optimisés",
+    "users": "Utilisateurs bêta"
+  },
+  "features": {
+    "eyebrow": "Comment ça marche",
+    "title": "Conçu pour les joueurs qui veulent des résultats",
+    "subtitle": "KOZ se concentre sur ce qui améliore réellement les performances de jeu, sans complexité ni bruit. Tout est conçu pour être clair et rapide à utiliser.",
+    "network": {
+      "title": "Optimisation réseau",
+      "description": "Réduisez les pics de ping et stabilisez votre connexion avec des ajustements au niveau réseau."
+    },
+    "presets": {
+      "title": "Préréglages de jeux",
+      "description": "Appliquez des préréglages optimisés pour vos titres préférés en un seul clic."
+    },
+    "monitoring": {
+      "title": "Surveillance en temps réel",
+      "description": "Suivez le CPU, la RAM et la latence dans une interface propre et sans distraction."
+    },
+    "safe": {
+      "title": "Sûr et réversible",
+      "description": "Tous les ajustements sont réversibles. Restaurez votre système aux valeurs par défaut à tout moment."
+    },
+    "advanced": {
+      "title": "Réglage avancé",
+      "description": "Ajustez les services, processus et routes réseau lorsque vous avez besoin d'un contrôle total."
+    },
+    "lightweight": {
+      "title": "Léger",
+      "description": "Conçu pour être rapide et efficace, avec une utilisation minimale des ressources."
+    }
+  },
+    "testimonials": {
+    "title": "Retours de joueurs réels",
+    "subtitle": "Voici seulement quelques-uns des résultats rapportés par des joueurs utilisant nos optimisations Tier 3, des configurations de strafe exclusives et des versions personnalisées de Windows.",
+    "disclaimer": "Tous les retours proviennent de vrais clients sur notre serveur Discord, où nous partageons des extraits complets, des captures et des résultats détaillés avant/après.",
+    "cta": "Voir plus de retours sur Discord",
+    "fpsGainLabel": "Gain de FPS",
+    "items": [
+        {
+        "name": "GODMOTA",
+        "role": "CS player",
+        "quote": "Service digne de cinq étoiles. Le PC gère enfin les machines à sous du casino et CS comme il devrait.",
+        "fpsGain": "CS : plus fluide et stable"
+        },
+        {
+        "name": "Bardock",
+        "role": "FiveM · Haven RP",
+        "quote": "Deuxième optimisation avec Krips, cette fois avec overclock. Je suis passé d’un FPS à peine jouable en ville à plus de 300 stables sur un serveur lourd.",
+        "fpsGain": "90–100 → 300 FPS"
+        },
+        {
+        "name": "dn",
+        "role": "FiveM player",
+        "quote": "J’avais testé plusieurs optimisations avant, rien n’est comparable. Les FPS sont verrouillés et stables, avec zéro input lag.",
+        "fpsGain": "Verrouillage à 450+ FPS"
+        },
+        {
+        "name": "EsQ_23",
+        "role": "FiveM player",
+        "quote": "Service de très haut niveau, chaque question a une réponse. Le strafe exclusif n’a jamais été aussi bon et le système est clairement plus rapide.",
+        "fpsGain": "Upgrade de strafe · visée plus fluide"
+        },
+        {
+        "name": "015",
+        "role": "FiveM · Crazy Strafe",
+        "quote": "Deux semaines après la session, le setup paraît encore meilleur chaque jour. Le strafe exclusif et la sens 12.5 sont parfaits en raids.",
+        "fpsGain": "330–360 FPS en raids"
+        },
+        {
+        "name": "Dudyz",
+        "role": "FiveM & Valorant",
+        "quote": "Le Tier 3 parle de lui‑même. Énormes FPS sur la base avec 300 joueurs et un boost solide sur Valorant aussi.",
+        "fpsGain": "Base FiveM : 500 FPS"
+        },
+        {
+        "name": "Relax",
+        "role": "FiveM arena",
+        "quote": "Le Tier 3 a transformé les duels d’arène en un autre jeu. Super propre, fluide et rapide. Exactement le genre de boost que tout le monde cherche.",
+        "fpsGain": "300–350 → 563+ FPS"
+        },
+        {
+        "name": "tuber",
+        "role": "FiveM player",
+        "quote": "Gros gain en constance et en réactivité. Les clips avant/après le montrent sans discussion.",
+        "fpsGain": "Gros gain de FPS · combats plus fluides"
+        },
+        {
+        "name": "ezzy.exe",
+        "role": "FiveM & YouTube",
+        "quote": "Pas de ksOS, uniquement Tier 3 et strafe exclusif. Simple, efficace et largement au‑dessus des ‘optimizers’ habituels.",
+        "fpsGain": "Strafe + gain de FPS"
+        },
+        {
+        "name": "Félix",
+        "role": "FiveM player",
+        "quote": "J’ai toujours eu beaucoup de FPS, mais jamais ce niveau de stabilité. Le Tier 3 avec strafe exclusif a repoussé encore le plafond.",
+        "fpsGain": "Jusqu’à 563 FPS"
+        }
+    ]
+    },
+  "download": {
+    "eyebrow": "Commencer",
+    "title": "Prêt à",
+    "titleHighlight": "optimiser votre configuration ?",
+    "subtitle": "KOZ est actuellement disponible pour Windows, avec plus de plateformes en développement. Téléchargez la bêta et commencez à tester le nouveau moteur de performances.",
+    "windows": "Windows",
+    "windowsDesc": "Windows 10 / 11, 64-bit",
+    "version": "v0.9.0 Bêta",
+    "size": "≈ 150 Mo",
+    "downloadButton": "Télécharger la bêta",
+    "macos": "macOS",
+    "macosDesc": "Support prévu",
+    "linux": "Linux",
+    "linuxDesc": "Support prévu",
+    "comingSoon": "Bientôt disponible"
+  },
+  "footer": {
+    "tagline": "L'optimiseur de performances construit par des joueurs, pour des joueurs.",
+    "copyright": "© {year} KOZ. Tous droits réservés."
+  }
+}

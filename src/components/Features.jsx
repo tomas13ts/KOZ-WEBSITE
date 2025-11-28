@@ -1,15 +1,17 @@
 import { motion } from "framer-motion"
+import { useLanguage } from "../contexts/LanguageContext"
 
 export default function Features() {
+  const { t } = useLanguage()
+
   return (
     <section className="py-20" id="features">
       <div className="mb-10">
         <h2 className="text-2xl md:text-3xl font-bold mb-3">
-          Features built for competitive players
+          {t("features.title")}
         </h2>
         <p className="text-sm md:text-base text-koz-muted max-w-xl">
-          KOZ focuses on what actually improves gaming performance, without
-          bloat or noise. Everything is designed to be clear and fast to use.
+          {t("features.subtitle")}
         </p>
       </div>
 
@@ -56,11 +58,10 @@ export default function Features() {
             </svg>
           </div>
           <h3 className="text-lg font-semibold text-koz-light mb-2">
-            Latency optimization
+            {t("features.network.title")}
           </h3>
           <p className="text-sm text-koz-muted">
-            Reduce ping spikes and stabilize your connection with network-level
-            tweaks.
+            {t("features.network.description")}
           </p>
         </motion.div>
 
@@ -97,11 +98,10 @@ export default function Features() {
             </svg>
           </div>
           <h3 className="text-lg font-semibold text-koz-light mb-2">
-            Game-focused profiles
+            {t("features.presets.title")}
           </h3>
           <p className="text-sm text-koz-muted">
-            Apply optimized presets for your favorite titles with a single
-            click.
+            {t("features.presets.description")}
           </p>
         </motion.div>
 
@@ -113,27 +113,27 @@ export default function Features() {
           viewport={{ once: true, margin: "-60px" }}
           className="card-glass"
         >
-        <div className="mb-3">
-  {/* clean heartbeat line icon */}
-  <svg
-    className="w-6 h-6 text-koz-primary"
-    viewBox="0 0 24 24"
-    fill="none"
-  >
-    <path
-      d="M3 12h4l2-4 3 8 2-4h7"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-</div>
+          <div className="mb-3">
+            {/* clean heartbeat line icon */}
+            <svg
+              className="w-6 h-6 text-koz-primary"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M3 12h4l2-4 3 8 2-4h7"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
           <h3 className="text-lg font-semibold text-koz-light mb-2">
-            Real-time monitoring
+            {t("features.monitoring.title")}
           </h3>
           <p className="text-sm text-koz-muted">
-            Track CPU, RAM and latency in a clean, distraction‑free interface.
+            {t("features.monitoring.description")}
           </p>
         </motion.div>
 
@@ -169,10 +169,10 @@ export default function Features() {
             </svg>
           </div>
           <h3 className="text-lg font-semibold text-koz-light mb-2">
-            Safe by design
+            {t("features.safe.title")}
           </h3>
           <p className="text-sm text-koz-muted">
-            All tweaks are reversible. Restore your system to defaults anytime.
+            {t("features.safe.description")}
           </p>
         </motion.div>
 
@@ -200,11 +200,10 @@ export default function Features() {
             </svg>
           </div>
           <h3 className="text-lg font-semibold text-koz-light mb-2">
-            Advanced control
+            {t("features.advanced.title")}
           </h3>
           <p className="text-sm text-koz-muted">
-            Fine‑tune services, processes and network routes when you need full
-            control.
+            {t("features.advanced.description")}
           </p>
         </motion.div>
 
@@ -240,10 +239,10 @@ export default function Features() {
             </svg>
           </div>
           <h3 className="text-lg font-semibold text-koz-light mb-2">
-            Lightweight engine
+            {t("features.lightweight.title")}
           </h3>
           <p className="text-sm text-koz-muted">
-            Built to be fast and efficient, with minimal resource usage.
+            {t("features.lightweight.description")}
           </p>
         </motion.div>
       </div>

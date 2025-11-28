@@ -1,8 +1,10 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useLanguage } from "../contexts/LanguageContext"
 
 export default function Hero() {
   const [openPreview, setOpenPreview] = useState(false)
+  const { t } = useLanguage()
 
   return (
     <>
@@ -16,25 +18,25 @@ export default function Hero() {
           <div className="mb-4">
             <span className="inline-flex items-center px-3 py-1 rounded-full glass-effect text-xs font-semibold text-koz-primary">
               <span className="mr-2">⭑</span>
-              KOZ app currently in development
+              {t("hero.badge")}
             </span>
           </div>
 
           <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
-            <span className="gradient-text">Optimize</span> your{" "}
-            <span className="gradient-text">PC for gaming</span>
+            <span className="gradient-text">{t("hero.titleOptimize")}</span>{" "}
+            {t("hero.titleMiddle")}{" "}
+            <span className="gradient-text">{t("hero.titlePcForGaming")}</span>
             <br />
-            <span className="text-koz-light">without guesswork</span>
+            <span className="text-koz-light">
+              {t("hero.titleWithoutGuesswork")}
+            </span>
           </h1>
 
           <p className="hero-subtitle mb-3">
-            KOZ is a Windows optimization app built from the same workflows used
-            in our one‑to‑one tuning services for competitive players.
+            {t("hero.subtitle")}
           </p>
           <p className="hero-subtitle mb-8">
-            While the app is in development, all updates, previews and
-            changelogs are shared inside our Discord community with over 4,000
-            members and 2,000+ paying clients.
+            {t("hero.description")}
           </p>
 
           <div className="flex flex-wrap items-center gap-4 mb-10">
@@ -46,7 +48,7 @@ export default function Hero() {
               whileTap={{ scale: 0.95 }}
               className="btn-primary"
             >
-              Join the Discord community
+              {t("hero.discordCta")}
             </motion.a>
           </div>
         </motion.div>
@@ -70,7 +72,7 @@ export default function Hero() {
           >
             <img
               src="/koz-dashboard.png"
-              alt="KOZ app system overview"
+              alt={t("hero.previewAlt")}
               className="block w-full h-auto"
             />
           </motion.button>
@@ -97,7 +99,7 @@ export default function Hero() {
             >
               <img
                 src="/koz-dashboard.png"
-                alt="KOZ app system overview large preview"
+                alt={t("hero.previewAltLarge")}
                 className="block w-full h-auto"
               />
 
@@ -106,7 +108,7 @@ export default function Hero() {
                 onClick={() => setOpenPreview(false)}
                 className="absolute top-4 right-4 px-3 py-1 rounded-full glass-effect text-xs text-koz-light"
               >
-                Close
+                {t("hero.close")}
               </button>
             </motion.div>
           </motion.div>

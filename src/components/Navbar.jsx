@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
+import { useLanguage } from "../contexts/LanguageContext"
+import LanguageSelector from "./LanguageSelector"
 
 export default function Navbar() {
+  const { t } = useLanguage()
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -12,91 +15,96 @@ export default function Navbar() {
   }, [])
 
   const navItems = [
-    { label: "Features", href: "#features" },
-    { label: "Performance", href: "#stats" },
+    { label: t("nav.features"), href: "#features" },
+    { label: t("nav.download"), href: "#stats" },
+    { label: t("nav.testimonials"), href: "#testimonials" },
   ]
 
   return (
-    <motion.nav
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`navbar ${isScrolled ? "glass-effect" : ""}`}
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-[#0f0f1e]/80 backdrop-blur-md shadow-lg border-b border-white/5"
+          : "bg-transparent"
+      }`}
     >
-      {/* Logo + nome */}
-      <motion.div whileHover={{ scale: 1.05 }} className="flex items-center gap-2">
-        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-koz-primary to-koz-secondary flex items-center justify-center overflow-hidden">
-          <img src="/logo.png" alt="KOZ Logo" className="w-full h-full object-cover" />
-        </div>
-        <span className="text-sm md:text-base font-semibold text-koz-light">
-          KOZ
-        </span>
-      </motion.div>
-
-      {/* Desktop nav */}
-      <div className="hidden md:flex items-center gap-6">
-        <div className="nav-links flex items-center">
-          {navItems.map((item) => (
-            <a key={item.href} href={item.href}>
-              {item.label}
-            </a>
-          ))}
+      <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <img src="/logo.png" alt="KOZ logo" className="h-6 w-6" />
+          <span className="text-xl font-semibold tracking-tight text-white">
+            KOZ
+          </span>
         </div>
 
-        <motion.a
-          href="https://discord.gg/kripsoptimization"
-          target="_blank"
-          rel="noreferrer"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.96 }}
-          className="ml-4 text-xs font-semibold text-koz-light px-4 py-2 rounded-full glass-effect"
-        >
-          Discord
-        </motion.a>
-      </div>
-
-      {/* Mobile button */}
-      <motion.button
-        whileTap={{ scale: 0.95 }}
-        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        className="md:hidden flex flex-col gap-1.5 ml-auto"
-      >
-        <span className="w-6 h-0.5 bg-koz-primary" />
-        <span className="w-6 h-0.5 bg-koz-primary" />
-        <span className="w-6 h-0.5 bg-koz-primary" />
-      </motion.button>
-
-      {/* Mobile menu */}
-      {mobileMenuOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.2 }}
-          className="absolute top-16 left-0 right-0 md:hidden glass-effect px-6 py-4"
-        >
-          <div className="flex flex-col gap-3">
+          {/* Desktop nav */}
+          <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="text-sm text-koz-light"
-                onClick={() => setMobileMenuOpen(false)}
+                className="text-gray-300 hover:text-white transition-colors text-sm"
               >
                 {item.label}
               </a>
             ))}
+
             <a
-              href="https://discord.gg/kripsoptimization"
+              href="https://discord.gg/koz"
               target="_blank"
-              rel="noreferrer"
-              className="btn-primary w-full text-sm text-center"
-              onClick={() => setMobileMenuOpen(false)}
+              rel="noopener noreferrer"
+              className="px-4 py-2 rounded-full bg-[#5865F2] hover:bg-[#4752C4] text-white text-sm font-medium shadow-lg shadow-indigo-500/30 transition-colors"
             >
               Discord
             </a>
+
+            <LanguageSelector />
           </div>
-        </motion.div>
-      )}
-    </motion.nav>
+
+          {/* Mobile button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden flex flex-col gap-1.5 ml-auto"
+          >
+            <span className="w-6 h-0.5 bg-white rounded" />
+            <span className="w-6 h-0.5 bg-white rounded" />
+            <span className="w-6 h-0.5 bg-white rounded" />
+          </button>
+        </div>
+
+        {/* Mobile menu */}
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden mt-4 flex flex-col gap-4 pb-4"
+          >
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-gray-300 hover:text-white transition-colors py-2 text-sm"
+              >
+                {item.label}
+              </a>
+            ))}
+
+            <a
+              href="https://discord.gg/koz"
+              onClick={() => setMobileMenuOpen(false)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 rounded-full bg-[#5865F2] hover:bg-[#4752C4] text-white text-sm font-medium shadow-lg shadow-indigo-500/30 transition-colors text-center"
+            >
+              Discord
+            </a>
+
+            <LanguageSelector />
+          </motion.div>
+        )}
+      </div>
+    </nav>
   )
 }
