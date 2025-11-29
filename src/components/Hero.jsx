@@ -8,75 +8,75 @@ export default function Hero() {
 
   return (
     <>
-      <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-        {/* Left side: copy */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="mb-4">
-            <span className="inline-flex items-center px-3 py-1 rounded-full glass-effect text-xs font-semibold text-koz-primary">
-              <span className="mr-2">⭑</span>
-              {t("hero.badge")}
-            </span>
-          </div>
+<div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-10 items-center pt-20 md:pt-0">
+  {/* Left side: copy */}
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6 }}
+  >
+    <div className="mb-4">
+      <span className="inline-flex items-center px-3 py-1 rounded-full glass-effect text-xs font-semibold text-koz-primary">
+        <span className="mr-2">⭑</span>
+        {t("hero.badge")}
+      </span>
+    </div>
 
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
-            <span className="gradient-text">{t("hero.titleOptimize")}</span>{" "}
-            {t("hero.titleMiddle")}{" "}
-            <span className="gradient-text">{t("hero.titlePcForGaming")}</span>
-            <br />
-            <span className="text-koz-light">
-              {t("hero.titleWithoutGuesswork")}
-            </span>
-          </h1>
+    <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+      <span className="gradient-text">{t("hero.titleOptimize")}</span>{" "}
+      {t("hero.titleMiddle")}{" "}
+      <span className="gradient-text">{t("hero.titlePcForGaming")}</span>
+      <br />
+      <span className="text-koz-light">
+        {t("hero.titleWithoutGuesswork")}
+      </span>
+    </h1>
 
-          <p className="hero-subtitle mb-3">
-            {t("hero.subtitle")}
-          </p>
-          <p className="hero-subtitle mb-8">
-            {t("hero.description")}
-          </p>
+    <p className="hero-subtitle mb-3">
+      {t("hero.subtitle")}
+    </p>
+    <p className="hero-subtitle mb-8">
+      {t("hero.description")}
+    </p>
 
-          <div className="flex flex-wrap items-center gap-4 mb-10">
-            <motion.a
-              href="https://discord.gg/kripsoptimization"
-              target="_blank"
-              rel="noreferrer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="btn-primary"
-            >
-              {t("hero.discordCta")}
-            </motion.a>
-          </div>
-        </motion.div>
+    <div className="flex flex-wrap items-center gap-4 mb-10">
+      <motion.a
+        href="https://discord.gg/kripsoptimization"
+        target="_blank"
+        rel="noreferrer"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="btn-primary"
+      >
+        {t("hero.discordCta")}
+      </motion.a>
+    </div>
+  </motion.div>
 
-        {/* Right side: 3D mockup with click to expand */}
-        <motion.div
-          initial={{ opacity: 0, x: 40, scale: 0.95 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="relative hidden lg:block"
-        >
-          <div className="absolute inset-0 rounded-[32px] bg-gradient-to-br from-koz-primary/40 via-koz-secondary/30 to-koz-cyan/20 blur-3xl opacity-50 pointer-events-none" />
+  {/* Right side: 3D mockup with click to expand */}
+  <motion.div
+    initial={{ opacity: 0, x: 40, scale: 0.95 }}
+    animate={{ opacity: 1, x: 0, scale: 1 }}
+    transition={{ duration: 0.7, delay: 0.1 }}
+    className="relative w-full"
+  >
+  <div className="absolute inset-0 rounded-[32px] bg-gradient-to-br from-koz-primary/40 via-koz-secondary/30 to-koz-cyan/20 blur-3xl opacity-50 pointer-events-none" />
 
-          <motion.button
-            type="button"
-            onClick={() => setOpenPreview(true)}
-            whileHover={{ rotateX: 8, rotateY: -8, translateY: -6 }}
-            transition={{ type: "spring", stiffness: 120, damping: 15 }}
-            className="relative rounded-[24px] overflow-hidden border border-koz-border bg-gradient-to-b from-white/8 to-white/2 shadow-xl shadow-koz-primary/20 cursor-pointer outline-none"
-            style={{ transformStyle: "preserve-3d" }}
-          >
-            <img
-              src="/koz-dashboard.png"
-              alt={t("hero.previewAlt")}
-              className="block w-full h-auto"
-            />
-          </motion.button>
-        </motion.div>
+  <motion.button
+    type="button"
+    onClick={() => setOpenPreview(true)}
+    whileHover={{ rotateX: 8, rotateY: -8, translateY: -6 }}
+    transition={{ type: "spring", stiffness: 120, damping: 15 }}
+    className="relative w-full rounded-[24px] overflow-hidden border border-koz-border bg-gradient-to-b from-white/8 to-white/2 shadow-xl shadow-koz-primary/20 cursor-pointer outline-none"
+    style={{ transformStyle: "preserve-3d" }}
+  >
+    <img
+      src="/koz-dashboard.png"
+      alt={t("hero.previewAlt")}
+      className="block w-full h-auto"
+    />
+  </motion.button>
+</motion.div>
       </div>
 
       {/* Fullscreen preview */}

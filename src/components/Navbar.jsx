@@ -29,51 +29,42 @@ export default function Navbar() {
             }`}
           >
       <div className="max-w-7xl mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="flex items-center gap-3 focus:outline-none"
-        >
-          <img src="/logo.png" alt="KOZ logo" className="h-6 w-6" />
-          <span className="text-xl font-semibold tracking-tight text-white">
-            KOZ
-          </span>
-        </button>
+<div className="flex items-center justify-between md:justify-between">
+  <button
+    onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+    className="flex items-center gap-3 focus:outline-none mx-auto md:mx-0"
+  >
+    <img src="/logo.png" alt="KOZ logo" className="h-6 w-6" />
+    <span className="text-xl font-semibold tracking-tight text-white">
+      KOZ
+    </span>
+  </button>
 
-          {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="text-gray-300 hover:text-white transition-colors text-sm"
-              >
-                {item.label}
-              </a>
-            ))}
+  {/* Desktop nav */}
+  <div className="hidden md:flex items-center gap-8">
+    {navItems.map((item) => (
+      <a
+        key={item.href}
+        href={item.href}
+        className="text-gray-300 hover:text-white transition-colors text-sm"
+      >
+        {item.label}
+      </a>
+    ))}
 
-            <a
-              href="https://discord.gg/kripsoptimization"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 rounded-full bg-[#5865F2] hover:bg-[#4752C4] text-white text-sm font-medium shadow-lg shadow-indigo-500/30 transition-colors"
-            >
-              Discord
-            </a>
+    <a
+      href="https://discord.gg/kripsoptimization"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="px-4 py-2 rounded-full bg-[#5865F2] hover:bg-[#4752C4] text-white text-sm font-medium shadow-lg shadow-indigo-500/30 transition-colors"
+    >
+      Discord
+    </a>
 
-            <LanguageSelector />
-          </div>
+    <LanguageSelector />
+  </div>
+</div>
 
-          {/* Mobile button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden flex flex-col gap-1.5 ml-auto"
-          >
-            <span className="w-6 h-0.5 bg-white rounded" />
-            <span className="w-6 h-0.5 bg-white rounded" />
-            <span className="w-6 h-0.5 bg-white rounded" />
-          </button>
-        </div>
 
         {/* Mobile menu */}
         {mobileMenuOpen && (
