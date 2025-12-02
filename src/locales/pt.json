@@ -9,7 +9,7 @@
     "titleOptimize": "Optimiza",
     "titleMiddle": "o teu",
     "titlePcForGaming": "PC para gaming",
-    "titleWithoutGuesswork": "sem adivinhações",
+    "titleWithoutGuesswork": "sem teres trabalho",
     "subtitle": "O KOZ é uma aplicação de optimização para Windows construída a partir dos mesmos fluxos de trabalho usados nos nossos serviços de ajuste individual para jogadores competitivos.",
     "description": "Enquanto a aplicação está em desenvolvimento, todas as actualizações, pré‑visualizações e registos de alterações são partilhados na nossa comunidade Discord com mais de 4.000 membros e 2.000+ clientes pagantes.",
     "discordCta": "Junta-te à comunidade no Discord",
@@ -147,6 +147,29 @@
     "linux": "Linux",
     "linuxDesc": "Suporte planeado",
     "comingSoon": "Em breve"
+  },
+    "pricing": {
+    "title": "Escolhe o Teu Plano",
+    "subtitle": "Aumenta o teu FPS e domina todos os jogos. Planos flexíveis para todos os gamers.",
+    "month": "Mês",
+    "months": "Meses",
+    "perMonth": "mês",
+    "recommended": "Recomendado",
+    "save": "Poupa",
+    "buyNow": "Comprar Agora",
+    "features": {
+      "optimization": "Otimização completa de FPS",
+      "ramClean": "Limpeza automática de RAM",
+      "profiles": "Perfis de desempenho",
+      "monitoring": "Monitor de recursos",
+      "support": "Suporte por email"
+    },
+    "trust": {
+      "secure": "Pagamento 100% Seguro",
+      "guarantee": "Updates Constantes",
+      "instant": "Ativação Instantânea",
+      "cancel": "Cancela a qualquer momento"
+    }
   },
   "footer": {
     "tagline": "O optimizador de desempenho construído por jogadores, para jogadores.",

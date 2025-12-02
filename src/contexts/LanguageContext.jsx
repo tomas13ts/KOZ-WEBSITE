@@ -26,7 +26,7 @@ export function LanguageProvider({ children }) {
       return browserLang
     }
 
-    // Padrão: português
+    // Padrão:
     return "en"
   })
 

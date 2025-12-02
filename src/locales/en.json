@@ -121,7 +121,7 @@
         {
         "name": "ezzy.exe",
         "role": "FiveM & YouTube",
-        "quote": "No ksOS, just Tier 3 and exclusive strafe. Simple, efficient and far ahead of the usual ‘optimizer’ attempts you see around.",
+        "quote": "No ksOS, just Tier 3 and exclusive strafe. Simple, efficient and far ahead of the usual 'optimizer' attempts you see around.",
         "fpsGain": "Strafe + FPS upgrade"
         },
         {
@@ -147,6 +147,29 @@
     "linux": "Linux",
     "linuxDesc": "Planned support",
     "comingSoon": "Coming soon"
+  },
+  "pricing": {
+    "title": "Choose Your Plan",
+    "subtitle": "Boost your FPS and dominate all games. Flexible plans for all gamers.",
+    "month": "Month",
+    "months": "Months",
+    "perMonth": "month",
+    "recommended": "Recommended",
+    "save": "Save",
+    "buyNow": "Buy Now",
+    "features": {
+      "optimization": "Complete FPS optimization",
+      "ramClean": "Automatic RAM cleaning",
+      "profiles": "Performance profiles",
+      "monitoring": "Resource monitoring",
+      "support": "Email support"
+    },
+    "trust": {
+      "secure": "100% Secure Payment",
+      "guarantee": "Constant Updates",
+      "instant": "Instant Activation",
+      "cancel": "Cancel Anytime"
+    }
   },
   "footer": {
     "tagline": "The performance optimizer built by gamers, for gamers.",

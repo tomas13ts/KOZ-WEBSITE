@@ -148,6 +148,29 @@
     "linuxDesc": "Support prévu",
     "comingSoon": "Bientôt disponible"
   },
+    "pricing": {
+    "title": "Choisis Ton Plan",
+    "subtitle": "Augmente tes FPS et domine tous les jeux. Plans flexibles pour tous les gamers.",
+    "month": "Mois",
+    "months": "Mois",
+    "perMonth": "mois",
+    "recommended": "Recommandé",
+    "save": "Économise",
+    "buyNow": "Acheter Maintenant",
+    "features": {
+      "optimization": "Optimisation complète des FPS",
+      "ramClean": "Nettoyage automatique de RAM",
+      "profiles": "Profils de performance",
+      "monitoring": "Moniteur de ressources",
+      "support": "Support par email"
+    },
+    "trust": {
+      "secure": "Paiement 100% Sécurisé",
+      "guarantee": "Mises à Jour Constantes",
+      "instant": "Activation Instantanée",
+      "cancel": "Annule à tout moment"
+    }
+  },
   "footer": {
     "tagline": "L'optimiseur de performances construit par des joueurs, pour des joueurs.",
     "copyright": "© {year} KOZ. Tous droits réservés."

@@ -8,6 +8,10 @@ import Footer from "./components/Footer"
 import AnimatedBackground from "./components/AnimatedBackground"
 import Testimonials from "./components/Testimonials"
 import AdminPanel from "./components/admin/AdminPanel"
+import ResetPassword from "./components/auth/ResetPassword"
+import ConfirmEmail from "./components/auth/ConfirmEmail"
+import PricingPlans from "./components/PricingPlans";
+import AppPreview from "./components/AppPreview"
 
 function PublicSite() {
   const [scrollY, setScrollY] = useState(0)
@@ -27,11 +31,11 @@ function PublicSite() {
 
       <main className="relative z-10 page-container">
         <section className="hero-section">
-          <Hero />
+          <PricingPlans />
         </section>
 
         <hr className="section-divider" />
-
+        <AppPreview />
         <Stats />
         <Features />
         <Testimonials />
@@ -47,6 +51,8 @@ export default function App() {
     <Routes>
       <Route path="/" element={<PublicSite />} />
       <Route path="/admin" element={<AdminPanel />} />
+      <Route path="auth/reset-password" element={<ResetPassword />} />
+      <Route path="auth/confirm" element={<ConfirmEmail />} />
     </Routes>
   )
 }

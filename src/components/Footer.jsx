@@ -36,13 +36,6 @@ export default function Footer() {
             <a href="#stats" className="hover:text-koz-primary">
               {t("stats.title")}
             </a>
-            <span className="hidden md:inline text-koz-border-light">|</span>
-            <a href="#" className="hover:text-koz-primary">
-              Privacy
-            </a>
-            <a href="#" className="hover:text-koz-primary">
-              Terms
-            </a>
           </div>
         </div>
 
