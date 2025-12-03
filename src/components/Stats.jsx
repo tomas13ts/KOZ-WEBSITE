@@ -3,24 +3,34 @@ import { motion } from "framer-motion"
 import { useLanguage } from "../contexts/LanguageContext"
 
 const initialStats = (t) => [
-  { label: t("stats.fpsBoost"), target: 8, suffix: "+" },
-  { label: t("stats.latency"), target: 25, suffix: "%" },
-  { label: t("stats.games"), target: 500, suffix: "+" },
-  { label: t("stats.users"), target: 2000, suffix: "+" },
+  { id: "fpsBoost",  label: t("stats.fpsBoost"),  target: 8,    suffix: "+" },
+  { id: "latency",   label: t("stats.latency"),   target: 25,   suffix: "%" },
+  { id: "games",     label: t("stats.games"),     target: 500,  suffix: "+" },
+  { id: "users",     label: t("stats.users"),     target: 2000, suffix: "+" },
 ]
 
 export default function Stats() {
-  const { t } = useLanguage()
-  const [stats, setStats] = useState(
+  const { t, language } = useLanguage()
+
+  const [stats, setStats] = useState(() =>
     initialStats(t).map((s) => ({ ...s, value: 0 }))
   )
 
+  // Atualiza labels e reinicia valores quando o idioma muda
   useEffect(() => {
+    setStats(initialStats(t).map((s) => ({ ...s, value: 0 })))
+  }, [language, t])
+
+  // Animação dos números
+  useEffect(() => {
+    if (!stats.length) return
+
     const timers = stats.map((_, index) =>
       setInterval(() => {
         setStats((prev) => {
           const next = [...prev]
           const current = next[index]
+          if (!current) return prev
           if (current.value < current.target) {
             const step = Math.max(current.target / 60, 1)
             current.value = Math.min(current.value + step, current.target)
@@ -30,9 +40,10 @@ export default function Stats() {
       }, 30)
     )
 
-    return () => timers.forEach(clearInterval)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    return () => {
+      timers.forEach(clearInterval)
+    }
+  }, [stats.length])
 
   return (
     <section className="py-20" id="stats">
@@ -48,7 +59,7 @@ export default function Stats() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {stats.map((stat) => (
           <motion.div
-            key={stat.label}
+            key={stat.id} // <- key estável
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}

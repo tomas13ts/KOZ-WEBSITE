@@ -8,44 +8,44 @@ const plans = [
   {
     id: "1month",
     duration: 1,
-    price: "9,99€",
-    priceValue: 9.99,
-    link: "",
+    price: "14,99€",
+    priceValue: 14.99,
+    link: "https://buy.stripe.com/28EeVedqa0vX94D8Tz5sA0b",
     icon: Zap,
     popular: false,
   },
   {
     id: "3months",
     duration: 3,
-    price: "26,99€",
-    priceValue: 26.99,
-    link: "",
+    price: "34,99€",
+    priceValue: 34.99,
+    link: "https://buy.stripe.com/eVqcN685QdiJ6Wv7Pv5sA0c",
     icon: Flame,
-    popular: true,
+    popular: false,
   },
   {
     id: "6months",
     duration: 6,
-    price: "49,99€",
-    priceValue: 49.99,
-    link: "",
+    price: "59,99€",
+    priceValue: 59.99,
+    link: "https://buy.stripe.com/eVqfZifyiceFeoX1r75sA0d",
     icon: Rocket,
     popular: false,
   },
   {
     id: "12months",
     duration: 12,
-    price: "95,99€",
-    priceValue: 95.99,
-    link: "",
+    price: "79,99€",
+    priceValue: 79.99,
+    link: "https://buy.stripe.com/cNidRadqaa6x80z5Hn5sA0e",
     icon: Crown,
-    popular: false,
+    popular: true,
   },
 ];
 
 const getSavings = (plan) => {
   if (plan.duration === 1) return null;
-  const monthlyEquivalent = 9.99 * plan.duration;
+  const monthlyEquivalent = 14.99 * plan.duration;
   const savings = ((monthlyEquivalent - plan.priceValue) / monthlyEquivalent * 100).toFixed(0);
   return savings > 0 ? savings : null;
 };
@@ -133,6 +133,9 @@ export default function PricingPlans() {
             text={t("pricing.title")}
             className="text-3xl md:text-4xl font-bold gradient-text mb-2 tracking-tight"
           />
+
+
+
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -160,29 +163,44 @@ export default function PricingPlans() {
                 transition={{ duration: 0.4, delay: index * 0.08 }}
                 className="relative group"
               >
-                <div
-                  className={`
-                    relative h-full card-glass p-5 rounded-2xl transition-all duration-300
-                    ${plan.popular 
-                      ? 'ring-2 ring-koz-primary/60 shadow-xl shadow-koz-primary/10 md:scale-[1.02]' 
-                      : 'hover:ring-1 hover:ring-koz-primary/30'
-                    }
-                    hover:-translate-y-1 hover:shadow-lg hover:shadow-koz-primary/5
-                  `}
-                >
+              <div
+                className={`
+                  relative h-full card-glass p-5 rounded-2xl transition-all duration-300
+                  ${
+                    plan.popular
+                      ? 'bg-gradient-to-b from-[#2a1f3d] via-[#1a132a] to-[#0f0a18] border-2 border-[#f4d18b] shadow-[0_0_20px_rgba(244,209,139,0.28)] md:scale-105 hover:scale-[1.06] hover:shadow-[0_0_26px_rgba(244,209,139,0.35)] hover:-translate-y-1'
+                      : 'border border-transparent hover:border-koz-primary/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-koz-primary/5'
+                  }
+                `}
+              >
                   {/* Popular Badge */}
                   {plan.popular && (
-                    <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 z-10">
-                      <div className="bg-gradient-to-r from-koz-primary to-koz-secondary px-3 py-1 rounded-full text-[10px] font-bold text-white shadow-md">
-                        {t("pricing.recommended")}
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
+                      <div className="bg-[#f2b35b] px-3 py-1 rounded-full text-[10px] font-semibold text-white shadow-md flex items-center gap-1.5">
+                        <span>{t("pricing.recommended")}</span>
                       </div>
                     </div>
                   )}
 
-                  {/* Icon */}
+
+                  {/* Icon – Crown dourada no popular */}
                   <div className="mb-5 flex justify-center">
-                    <div className="p-3 bg-koz-primary/10 rounded-xl border border-koz-primary/20 group-hover:border-koz-primary/40 transition-colors">
-                      <Icon className="w-8 h-8 text-koz-primary" strokeWidth={2} />
+                    <div
+                      className={`
+                        p-3 rounded-xl border transition-colors
+                        ${
+                          plan.popular
+                            ? "bg-[#1f1833] border-[#f4d18b40]"
+                            : "bg-koz-primary/10 border-koz-primary/20 group-hover:border-koz-primary/40"
+                        }
+                      `}
+                    >
+                      <Icon
+                        className={`
+                          w-8 h-8 stroke-[2]
+                          ${plan.popular ? "text-[#f4d18b]" : "text-koz-primary"}
+                        `}
+                      />
                     </div>
                   </div>
 
@@ -198,15 +216,26 @@ export default function PricingPlans() {
 
                   {/* Price */}
                   <div className="mb-4 pb-4 border-b border-koz-border/50">
-                    <div className="text-3xl font-black gradient-text text-center mb-1">
+                    <div
+                      className={`
+                        text-3xl font-black text-center mb-1
+                        ${
+                          plan.popular
+                            ? 'text-[#f4d18b] drop-shadow-[0_0_18px_rgba(244,209,139,0.75)]'
+                            : 'gradient-text'
+                        }
+                      `}
+                    >
                       {plan.price}
                     </div>
+
                     <div className="text-xs text-koz-muted text-center">
-                      {pricePerMonth}€/{t("pricing.perMonth")}
+                      {pricePerMonth} {t("pricing.perMonth")}
                     </div>
+
                     {savings && (
                       <div className="text-[10px] text-koz-green font-bold mt-1.5 text-center">
-                        {t("pricing.save")} {savings}%
+                        {t("pricing.save", { value: savings })}
                       </div>
                     )}
                   </div>
@@ -232,14 +261,18 @@ export default function PricingPlans() {
                     href={plan.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`
-                      block w-full py-2.5 px-4 rounded-xl text-sm font-bold text-center transition-all duration-300
-                      ${plan.popular 
-                        ? 'btn-primary' 
+                  className={`
+                    block w-full py-2.5 px-4 rounded-xl text-sm font-bold text-center
+                    transition-all duration-300
+                    ${
+                      plan.popular
+                        ? 'bg-[#f2b35b] hover:bg-[#f4bf72] text-white shadow-md shadow-[0_10px_28px_rgba(242,179,91,0.45)] hover:-translate-y-0.5'
                         : 'btn-secondary'
-                      }
-                    `}
+                    }
+                  `}
+
                   >
+
                     {t("pricing.buyNow")}
                   </a>
                 </div>
