@@ -23,22 +23,25 @@ export default function Navbar() {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled
-        ? "bg-[#0f0f1e]/80 backdrop-blur-md shadow-lg"
-        : "bg-transparent"
-            }`}
-          >
+        isScrolled
+          ? "bg-[#0f0f1e]/80 backdrop-blur-md shadow-lg"
+          : "bg-transparent"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-6 py-4">
-<div className="flex items-center justify-between md:justify-between">
-  <button
-    onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-    className="flex items-center gap-3 focus:outline-none mx-auto md:mx-0"
-  >
-    <img src="/logo.png" alt="KOZ logo" className="h-6 w-6" />
-    <span className="text-xl font-semibold tracking-tight text-white">
-      KOZ
-    </span>
-  </button>
+        <div className="flex items-center justify-between md:justify-between">
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="flex items-center gap-4 focus:outline-none mx-auto md:mx-0"
+          >
+            <img src="/logo.png" alt="KOZ logo" className="h-6 w-6" />
+            <span className="text-xl font-semibold tracking-tight text-white">
+              KOZ
+            </span>
+            <span className="text-xs font-medium px-2 py-0.5 rounded bg-red-600/90 text-white flex items-center gap-1">
+              🎅 Christmas Prices
+            </span>
+          </button>
 
   {/* Desktop nav */}
   <div className="hidden md:flex items-center gap-8">
