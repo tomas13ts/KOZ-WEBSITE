@@ -38,9 +38,6 @@ export default function Navbar() {
             <span className="text-xl font-semibold tracking-tight text-white">
               KOZ
             </span>
-            <span className="text-xs font-medium px-2 py-0.5 rounded bg-red-600/90 text-white flex items-center gap-1">
-              🎅 Christmas Prices
-            </span>
           </button>
 
   {/* Desktop nav */}
