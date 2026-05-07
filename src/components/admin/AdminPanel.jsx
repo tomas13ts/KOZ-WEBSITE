@@ -515,11 +515,11 @@ keys.map((k) => {
   let status = "Unused"
   let statusColor = "text-gray-400"
 
-  if (expiresAt && expiresAt < now && !k.is_used) {
+  if (expiresAt && expiresAt < now) {
     status = "Expired"
-    statusColor = "text-yellow-400"
+    statusColor = "text-red-400"
   } else if (k.is_used) {
-    status = "Used"
+    status = "Online"
     statusColor = "text-emerald-400"
   }
 
@@ -591,9 +591,7 @@ const handleDelete = async (keyId) => {
                           className={`inline-flex px-2 py-0.5 rounded-full text-[10px] ${
                             status === "Used"
                               ? "bg-emerald-500/10"
-                              : status === "Expired"
-                              ? "bg-yellow-500/10"
-                              : "bg-slate-500/10"
+                              : status === "Expired" ? "bg-red-500/10" : "bg-slate-500/10"
                           } ${statusColor}`}
                         >
                           {status}
